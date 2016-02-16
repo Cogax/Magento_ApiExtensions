@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+            <complexType name="catalogProductReturnEntity">
+                <all>
+                    <element name="parent_sku" type="xsd:string" minOccurs="0"/>
+                    <element name="url_complete" type="xsd:string" minOccurs="0"/>
+                    <element name="configurable_products_data" type="typens:childrenEntityArray" minOccurs="0"/>
+                    <element name="configurable_attributes_data" type="typens:configurableOptionsEntityArray"
+                             minOccurs="0"/>
+                    <element name="stock_data" type="typens:catalogInventoryStockItemEntityArray" minOccurs="0"/>
+                    <element name="images" type="typens:catalogProductImageEntityArray" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="childrenEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:childrenEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="childrenEntity">
+                <all>
+                    <element name="sku" type="xsd:string" minOccurs="0"/>
+                    <element name="options" type="typens:optionsEntityArray" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="configurableOptionsEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:configurableOptionsEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="configurableOptionsEntity">
+                <all>
+                    <element name="code" type="xsd:string" minOccurs="0"/>
+                    <element name="label" type="xsd:string" minOccurs="0"/>
+                    <element name="options" type="typens:optionsEntityArray" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="optionsEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:optionsEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="optionsEntity">
+                <all>
+                    <element name="product_super_attribute_id" type="xsd:string" minOccurs="0"/>
+                    <element name="value_index" type="xsd:string" minOccurs="0"/>
+                    <element name="label" type="xsd:string" minOccurs="0"/>
+                    <element name="default_label" type="xsd:string" minOccurs="0"/>
+                    <element name="store_label" type="xsd:string" minOccurs="0"/>
+                    <element name="is_percent" type="xsd:int" minOccurs="0"/>
+                    <element name="pricing_value" type="xsd:double" minOccurs="0"/>
+                    <element name="use_default_value" type="xsd:boolean" minOccurs="0"/>
+                    <element name="attribute_code" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+        </schema>
+    </types>
+    <message name="customerCustomerLoginRequest">
+        <part name="email" type="xsd:string" />
+        <part name="password" type="xsd:password" />
+    </message>
+    <message name="customerCustomerLoginResponse">
+        <part name="result" type="xsd:string" />
+    </message>
+    <message name="customerCustomerLogoutResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="customerCustomerLogin">
+            <documentation>Login for a customer</documentation>
+            <input message="typens:customerCustomerLoginRequest" />
+            <output message="typens:customerCustomerLoginResponse" />
+        </operation>
+        <operation name="customerCustomerLogout">
+            <documentation>Logout for a customer</documentation>
+            <output message="typens:customerCustomerLogoutResponse" />
+        </operation>
+    </portType>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="customerCustomerLogin">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="customerCustomerLogout">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+    </binding>
+</definitions>

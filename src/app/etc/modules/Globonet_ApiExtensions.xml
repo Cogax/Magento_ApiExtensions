@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Globonet_ApiExtensions>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends></depends>
+        </Globonet_ApiExtensions>
+    </modules>
+</config>

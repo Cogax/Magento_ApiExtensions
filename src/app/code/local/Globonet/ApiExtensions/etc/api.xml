@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <api>
+        <resources>
+            <customer translate="title" module="customer">
+                <model>customer/customer_api</model>
+                <title>Customer API</title>
+                <acl>customer</acl>
+                <methods>
+                    <login translate="title" module="customer">
+                        <title>Customer Login</title>
+                        <acl>customer/login</acl>
+                    </login>
+                    <logout translate="title" module="customer">
+                        <title>Customer Logout</title>
+                        <acl>customer/logout</acl>
+                    </logout>
+                </methods>
+                <faults module="customer">
+                </faults>
+            </customer>
+        </resources>
+    </api>
+</config>

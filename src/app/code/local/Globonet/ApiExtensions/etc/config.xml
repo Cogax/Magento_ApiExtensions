@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Globonet_ApiExtensions>
+            <version>1.0.0</version>
+        </Globonet_ApiExtensions>
+    </modules>
+    <global>
+        <blocks>
+            <globonet_apiextensions>
+                <class>Globonet_ApiExtensions_Block</class>
+            </globonet_apiextensions>
+        </blocks>
+        <helpers>
+            <globonet_apiextensions>
+                <class>Globonet_ApiExtensions_Helper</class>
+            </globonet_apiextensions>
+        </helpers>
+        <models>
+            <globonet_apiextensions>
+                <class>Globonet_ApiExtensions_Model</class>
+            </globonet_apiextensions>
+            <catalog>
+                <rewrite>
+                    <product_api>Globonet_ApiExtensions_Model_Catalog_Product_Api</product_api>
+                    <product_api_v2>Globonet_ApiExtensions_Model_Catalog_Product_Api_V2</product_api_v2>
+                </rewrite>
+            </catalog>
+            <customer>
+                <rewrite>
+                    <customer_api>Globonet_ApiExtensions_Model_Customer_Api</customer_api>
+                    <customer_api_v2>Globonet_ApiExtensionso_Model_Customer_Api_V2</customer_api_v2>
+                </rewrite>
+            </customer>
+        </models>
+    </global>
+</config>
