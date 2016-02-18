@@ -86,15 +86,6 @@ class Globonet_ApiExtensions_Model_Catalog_Product_Api extends Mage_Catalog_Mode
                     $options[$k]['label'] = $attribute['store_label'];
                     $options[$k]['code'] = $attribute['attribute_code'];
 
-
-
-                    $a = $product->getResource()->getAttribute($attribute['attribute_code'])->getFrontend()->getValue($product);
-                    $a = $product->getResource()->getAttribute($attribute['attribute_code'])->getFrontend()->getSelectOptions();
-                    $options[$k]['test'] = $a;
-
-
-
-
                     foreach ($attribute['values'] as $value) {
                         $value['attribute_code'] = $attribute['attribute_code'];
                         $options[$k]['options'][] = $value;
@@ -122,7 +113,7 @@ class Globonet_ApiExtensions_Model_Catalog_Product_Api extends Mage_Catalog_Mode
                       'short_description' => $childProduct->getShortDescription(),
                       'price' => $childProduct->getPrice(),
                       'stock_data' => $stock_data,
-                      'test' => get_class($childProduct)
+                      'images' => Mage::getSingleton('Mage_Catalog_Model_Product_Attribute_Media_Api')->items($childProduct->getId(), $store)
                     );
 
                     foreach ($attributesData as $attribute) {
