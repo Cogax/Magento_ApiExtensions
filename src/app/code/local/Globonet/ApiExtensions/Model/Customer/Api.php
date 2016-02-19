@@ -15,16 +15,25 @@ class Globonet_ApiExtensions_Model_Customer_Api extends Mage_Customer_Model_Cust
    * @param   string  $password Password of customer to authenticate
    * @return  string|null Session ID
    */
-  public function login($email, $password)
-  {
+  public function login($email, $password, $store) {
+    Mage::app()->setCurrentStore($store);
+
     // get customer session object
     $session = $this->_getCustomerSession();
 
     // authenticate customer
-    if($session->login($email, $password)) {
-      return $session->getSessionId();
-    } else {
-      return null;
+    try {
+      $session->login($email, $password); // will throw an exception if login is invalid
+      $customer_info = $this->info($this->_getAuthenticatedCustomerId());
+      $customer_info['session'] = array(
+        'session_id' => $session->getEncryptedSessionId(),
+        'query_param' => $session->getSessionIdQueryParam(),
+        'cookie_lifetime' => $session->getCookieLifetime(),
+        'full_url' => Mage::getUrl( '/', array('_store' => $store, '_query' => array($session->getSessionIdQueryParam() => $session->getEncryptedSessionId() ), '_store_to_url' => true))
+      );
+      return $customer_info;
+    } catch (Exception $e) {
+      return FALSE;
     }
   }
 
